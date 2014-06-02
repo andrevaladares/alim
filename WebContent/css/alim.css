@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+/* icones e imagens*/
+
+.icone{
+	height: 32px;
+	width: 32px;
+	display: inline-block;
+	color: transparent;
+	text-indent: -9999px;
+}
+
+.ok {
+	background-image: url("../img/Smiley_Happy_w32h32.png");
+}
+
+.sobra{
+	background-image: url("../img/Symbol_Up_w32h32.png");
+}
+
+.excesso{
+	background-image: url("../img/Smiley_Sad_w32h32.png");
+}
+
+/* tags */
+ol {
+	list-style-type: none;
+}
+
+li {
+	display: table;
+}
+
+li span {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* tipos de dados */
+.descricao {
+	width: 300px;
+}
+
+.valor{
+	width: 50px;
+}
