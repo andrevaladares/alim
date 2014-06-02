@@ -25,15 +25,22 @@
 /* tags */
 ol {
 	list-style-type: none;
+	padding-left: 0px;
 }
 
 li {
 	display: table;
+	height: 35px;
 }
 
 li span {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+label {
+	width: 150px;
+	display: inline-block;
 }
 
 /* tipos de dados */
