@@ -152,8 +152,17 @@ function oberDataSeguinteComDados(dataUltimaConsultaStr) {
 			 */
 			dataSeguinte = dataUltimaConsultaStr;
 		} else if (indiceDataUltimaConsulta == datasConsumoGravadas.length - 1) {
-			/* data da ultima consulta e o unico elemento no array */
-			dataSeguinte = dataUltimaConsultaStr;
+			/*
+			 * data da ultima consulta e o unico elemento no array ou a data
+			 * atual que ainda nao foi gravada e ainda nao foi gravada
+			 */
+			if(datasConsumoGravadas.length==1){
+				/* data da ultima consulta e o unico elemento no array */
+				dataSeguinte = dataUltimaConsultaStr;
+			}
+			else{
+				dataSeguinte = new Date().toLocaleDateString();
+			}
 		} else {
 			dataSeguinte = datasConsumoGravadas[indiceDataUltimaConsulta + 1];
 		}
