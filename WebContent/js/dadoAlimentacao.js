@@ -16,7 +16,7 @@ function DadoAlimentacao(id, descricao, consumoRecomendadoDia) {
 	
 	this.calcularConsumoDia = function (data){
 		var totalConsumido = 0;
-		var consumoDoDia = this["consumo" + data.toLocaleDateString()];
+		var consumoDoDia = this["consumo" + data];
 		for(var index in consumoDoDia){
 			totalConsumido += consumoDoDia[index].porcaoConsumida;
 		}

@@ -10,25 +10,30 @@
 <link rel="stylesheet" type="text/css" href="css/alim.css">
 </head>
 <body>
-	<h2>Acompanhamento alimentar</h2>
-	<label for="dataAcompanhamento">Data:</label>
-	<span id="dataAcompanhamento"></span>
-
+	<div class="cabecalho">
+		<h2>Acompanhamento alimentar</h2>
+		<span id="dataAcompanhamento"></span>
+	</div>
+	<div class="navegacao">
+	<button id="navegarAnterior" >Anterior</button>
+	<button id="navegarProximo" >Próximo</button>
+	</div>
 	<form>
 		<ol id="tabelaAcompanhamentoAlimentar">
 
 		</ol>
-		
-		<label for="grupoAlimentar">Grupo Alimentar:</label> 
-		<select
-			id="grupoAlimentar">
-			<option value="0">Selecionar</option>
-		</select>
-		<br /> 
-		<label for="porcaoConsumida">Porção Consumida:</label> <input
-			type="number" id="porcaoConsumida" class="valor" />
-			<br />
-		<button value="Adicionar" id="btnAdicionarConsumo">Adicionar</button>
+		<fieldset>		
+			<label for="grupoAlimentar">Grupo Alimentar:</label> 
+			<select
+				id="grupoAlimentar">
+				<option value="0">Selecionar</option>
+			</select>
+			<br /> 
+			<label for="porcaoConsumida">Porção Consumida:</label> <input
+				type="number" id="porcaoConsumida" class="valor" />
+				<br />
+			<button value="Adicionar" id="btnAdicionarConsumo">Adicionar</button>
+		</fieldset>
 	</form>
 </body>
 </html>

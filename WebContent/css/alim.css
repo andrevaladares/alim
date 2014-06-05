@@ -1,24 +1,24 @@
 @CHARSET "ISO-8859-1";
 
 /* icones e imagens*/
-
-.icone{
+.iconeAvaliacao {
 	height: 32px;
 	width: 32px;
 	display: inline-block;
 	color: transparent;
 	text-indent: -9999px;
+	border-style: none;
 }
 
 .ok {
 	background-image: url("../img/Smiley_Happy_w32h32.png");
 }
 
-.sobra{
+.sobra {
 	background-image: url("../img/Symbol_Up_w32h32.png");
 }
 
-.excesso{
+.excesso {
 	background-image: url("../img/Smiley_Sad_w32h32.png");
 }
 
@@ -36,6 +36,10 @@ li {
 li span {
 	display: table-cell;
 	vertical-align: middle;
+	background-color: lightsteelblue;
+	border-radius: 10px;
+	border-style: outset;
+	border-width: 2px;
 }
 
 label {
@@ -43,11 +47,32 @@ label {
 	display: inline-block;
 }
 
+fieldset {
+	background-color: lightsteelblue;
+	border-radius: 10px;
+	width: 450px; 
+}
+
 /* tipos de dados */
 .descricao {
 	width: 300px;
 }
 
-.valor{
+.valor {
+	text-align: center;
 	width: 50px;
+}
+
+/* Areas */
+.total {
+	background-color: none;
+	background-color: inherit;
+	border-style: none;
+	text-align: center;
+	padding-left: 4px;
+}
+
+.cabecalho{
+	text-align: center;
+	width: 450px;
 }

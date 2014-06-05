@@ -1,12 +1,33 @@
 window.onload = init;
 
 function init() {
-	document.getElementById("dataAcompanhamento").innerHTML = new Date().toLocaleDateString();
+	document.getElementById("navegarAnterior").onclick = navegarDataAnterior;
+	document.getElementById("navegarProximo").onclick = navegarProximaData;
 
-	var dadosAlimentacao = obterDadosAlimentacao();
+	var dataAtualStr = new Date().toLocaleDateString();
+	document.getElementById("dataAcompanhamento").innerHTML = dataAtualStr;
+	montarTela(dataAtualStr);
+}
+
+function navegarDataAnterior(){
+	var dataUltimaConsultaStr = document.getElementById("dataAcompanhamento").innerHTML;
+	var dataAnteriorStr = oberDataAnteriorComDados(dataUltimaConsultaStr);
+	document.getElementById("dataAcompanhamento").innerHTML = dataAnteriorStr;
+	montarTela(dataAnteriorStr);
+}
+
+function navegarProximaData(){
+	var dataUltimaConsultaStr = document.getElementById("dataAcompanhamento").innerHTML;
+	var dataSeguinteStr = oberDataSeguinteComDados(dataUltimaConsultaStr);
+	document.getElementById("dataAcompanhamento").innerHTML = dataSeguinteStr;
+	montarTela(dataSeguinteStr);
+}
+
+function montarTela(data){
+	var dadosAlimentacao = obterDadosAlimentacao(data);
 	if (dadosAlimentacao.length > 0) {
-		carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao);
-		calcularECarregarTotaisConsumoDia(dadosAlimentacao);
+		carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, data);
+		calcularECarregarTotaisConsumoDia(dadosAlimentacao, data);
 		montarFormularioAdicaoConsumo(dadosAlimentacao);
 	}
 }
@@ -18,7 +39,7 @@ function init() {
  * @param dadosAlimentacao
  *            array contendo instancias de DadoAlimentacao
  */
-function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao) {
+function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 	var liItem;
 	var spanItemDescricao;
 	var spanItemRecomendacao;
@@ -35,12 +56,12 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao) {
 
 		spanItemDescricao = criarElemento("span", "itemDesc_" + idDadosAlimentacao, dadosAlimentacao[index].descricao, "descricao");
 		spanItemRecomendacao = criarElemento("span", "itemRec_" + idDadosAlimentacao, dadosAlimentacao[index].consumoRecomendadoDia, "valor");
-		consumoCalculadoDia = dadosAlimentacao[index].calcularConsumoDia(new Date());
+		consumoCalculadoDia = dadosAlimentacao[index].calcularConsumoDia(dataStr);
 		spanItemConsumo = criarElemento("span", "itemCons_" + idDadosAlimentacao, consumoCalculadoDia, "valor");
 
 		avaliacaoConsumoDia = avaliarConsumoDia(dadosAlimentacao[index].consumoRecomendadoDia, consumoCalculadoDia);
 		
-		spanAvaliacaoConsumoDia = criarElemento("span", "itemCons_" + idDadosAlimentacao, avaliacaoConsumoDia, "icone " + avaliacaoConsumoDia);
+		spanAvaliacaoConsumoDia = criarElemento("span", "itemCons_" + idDadosAlimentacao, avaliacaoConsumoDia, "iconeAvaliacao " + avaliacaoConsumoDia);
 
 		liItem = document.createElement("li");
 		liItem.setAttribute("id", "item_" + dadosAlimentacao[index].id);
@@ -49,7 +70,14 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao) {
 		liItem.appendChild(spanItemConsumo);
 		liItem.appendChild(spanAvaliacaoConsumoDia);
 
-		tabela.appendChild(liItem);
+		//todo melhorar?
+		var liItemExistente = document.getElementById(liItem.id);
+		if(liItemExistente){
+			tabela.replaceChild(liItem, liItemExistente);
+		}
+		else{
+			tabela.appendChild(liItem);
+		}
 	}
 }
 
@@ -78,30 +106,36 @@ function avaliarConsumoDia(consumoRecomendadoDia, consumoRealizadoDia) {
  * @param dadosAlimentacao
  *            array contendo instancias de DadoAlimentacao
  */
-function calcularECarregarTotaisConsumoDia(dadosAlimentacao) {
+function calcularECarregarTotaisConsumoDia(dadosAlimentacao, dataStr) {
 	var totalRecomendacoes = 0;
 	var totalConsumos = 0;
 	var tabela = document.getElementById("tabelaAcompanhamentoAlimentar");
 
 	for (var index in dadosAlimentacao) {
 		totalRecomendacoes += dadosAlimentacao[index].consumoRecomendadoDia;
-		totalConsumos += dadosAlimentacao[index].calcularConsumoDia(new Date());
+		totalConsumos += dadosAlimentacao[index].calcularConsumoDia(dataStr);
 	}
 
-	var spanDescTotal = criarElemento("span", "descTotal", "Totais", "descricao");
-	var spanTotalRecs = criarElemento("span", "totalRecs", totalRecomendacoes, "valor");
-	var spanTotalCons = criarElemento("span", "totalCons", totalConsumos, "valor");
+	var spanDescTotal = criarElemento("span", "descTotal", "Totais", "descricao total");
+	var spanTotalRecs = criarElemento("span", "totalRecs", totalRecomendacoes, "valor total");
+	var spanTotalCons = criarElemento("span", "totalCons", totalConsumos, "valor total");
 	var avaliacaoTotalDia = avaliarConsumoDia(totalRecomendacoes, totalConsumos);
-	var spanAvaliacaoTotal = criarElemento("span", "avalTotal", avaliacaoTotalDia,"icone " + avaliacaoTotalDia);
+	var spanAvaliacaoTotal = criarElemento("span", "avalTotal", avaliacaoTotalDia,"iconeAvaliacao total " + avaliacaoTotalDia);
 
-	liItem = document.createElement("li");
-	liItem.setAttribute("id", "itemTotal");
-	liItem.appendChild(spanDescTotal);
-	liItem.appendChild(spanTotalRecs);
-	liItem.appendChild(spanTotalCons);
-	liItem.appendChild(spanAvaliacaoTotal);
+	liTotal = document.createElement("li");
+	liTotal.setAttribute("id", "itemTotal");
+	liTotal.appendChild(spanDescTotal);
+	liTotal.appendChild(spanTotalRecs);
+	liTotal.appendChild(spanTotalCons);
+	liTotal.appendChild(spanAvaliacaoTotal);
 
-	tabela.appendChild(liItem);
+	var liTotalExistente = document.getElementById(liTotal.id);
+	if(liTotalExistente){
+		tabela.replaceChild(liTotal, liTotalExistente);
+	}
+	else{
+		tabela.appendChild(liTotal);
+	}
 }
 
 /**
@@ -132,7 +166,8 @@ function montarFormularioAdicaoConsumo(dadosAlimentacao) {
  */
 function adicionarConsumo() {
 	var idGrupoAlimentar = parseInt(document.getElementById("grupoAlimentar").value);
-	var dadosAlimentacao = obterDadosAlimentacao();
+	var dataCadastro = new Date();
+	var dadosAlimentacao = obterDadosAlimentacao(dataCadastro.toLocaleDateString());
 	var itemConsumo;
 
 	var porcaoConsumida = parseInt(document.getElementById("porcaoConsumida").value);
@@ -140,7 +175,7 @@ function adicionarConsumo() {
 	if (porcaoConsumida) {
 		for (var index in dadosAlimentacao) {
 			if (dadosAlimentacao[index].id == idGrupoAlimentar) {
-				itemConsumo = new ItemConsumoDia(new Date(), porcaoConsumida);
+				itemConsumo = new ItemConsumoDia(dataCadastro, porcaoConsumida);
 				dadosAlimentacao[index].novoConsumo(itemConsumo);
 				gravarNovoConsumo(dadosAlimentacao[index], itemConsumo);
 				break;
