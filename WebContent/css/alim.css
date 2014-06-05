@@ -24,6 +24,16 @@ div.navegacao{
 	float: right;
 }
 
+#btnAdicionarConsumo{
+	height: 32px;
+	width: 32px;
+	color: transparent;
+	text-indent: -9999px;
+	border-style: outset;
+	background-image: url("../img/Checked_w32h32.png");
+	float: right;
+}
+
 /* icones e imagens*/
 .iconeAvaliacao {
 	height: 32px;
