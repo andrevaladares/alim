@@ -71,16 +71,16 @@ function montarChaveDadoConsumo(dadoBaseAlimentacao, data) {
 	return chaveDadoConsumo;
 }
 
-function gravarNovoConsumo(dadoAlimentacao, itemConsumo) {
-	var chaveDadoConsumo = montarChaveDadoConsumo(dadoAlimentacao, itemConsumo.dataConsumo.toLocaleDateString());
+function gravarNovoConsumo(dadoAlimentacao, dataConsumo) {
+	var chaveDadoConsumo = montarChaveDadoConsumo(dadoAlimentacao, dataConsumo.toLocaleDateString());
 	var arrayItensConsumo = localStorage.getItem(chaveDadoConsumo);
 	if (arrayItensConsumo) {
 		arrayItensConsumo = JSON.parse(arrayItensConsumo);
 	} else {
 		arrayItensConsumo = [];
 	}
-	adicionarDataAoArrayDeConsumosGravados(itemConsumo.dataConsumo);
-	arrayItensConsumo.push(itemConsumo);
+	adicionarDataAoArrayDeConsumosGravados(dataConsumo);
+	arrayItensConsumo.push(dataConsumo);
 	localStorage.setItem(chaveDadoConsumo, JSON.stringify(arrayItensConsumo));
 }
 

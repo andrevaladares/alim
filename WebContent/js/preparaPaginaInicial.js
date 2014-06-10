@@ -28,7 +28,6 @@ function montarTela(data){
 	if (dadosAlimentacao.length > 0) {
 		carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, data);
 		calcularECarregarTotaisConsumoDia(dadosAlimentacao, data);
-		montarFormularioAdicaoConsumo(dadosAlimentacao);
 	}
 }
 
@@ -69,6 +68,9 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 		liItem.appendChild(spanItemRecomendacao);
 		liItem.appendChild(spanItemConsumo);
 		liItem.appendChild(spanAvaliacaoConsumoDia);
+		
+		var botaoAdicionar = criarBotaoAdicionar(dadosAlimentacao[index]);
+		liItem.appendChild(botaoAdicionar);
 
 		//todo melhorar?
 		var liItemExistente = document.getElementById(liItem.id);
@@ -79,6 +81,16 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 			tabela.appendChild(liItem);
 		}
 	}
+}
+
+function criarBotaoAdicionar(dadoAlimentacao){
+	var btnAddConsumo = document.createElement("input");
+	btnAddConsumo.setAttribute("type", "button");
+	btnAddConsumo.id = "btnAdd_" + dadoAlimentacao.id;
+	btnAddConsumo.value = "Add";
+	btnAddConsumo.onclick = adicionarConsumo;
+	
+	return btnAddConsumo;
 }
 
 /**
@@ -139,49 +151,31 @@ function calcularECarregarTotaisConsumoDia(dadosAlimentacao, dataStr) {
 }
 
 /**
- * Monta na tela inicial o formulario que permite adicionar novo consumo para a
- * data atual. Utiliza o parametro para montar a combo com os grupos alimentares
- * 
- * @param dadosAlimentacao
- *            array contendo instancias de DadoAlimentacao
- */
-function montarFormularioAdicaoConsumo(dadosAlimentacao) {
-	var select = document.getElementById("grupoAlimentar");
-	var opt;
-	for (var index in dadosAlimentacao) {
-		opt = document.createElement("option");
-		opt.value = dadosAlimentacao[index].id;
-		opt.text = dadosAlimentacao[index].descricao;
-
-		select.appendChild(opt);
-	}
-
-	document.getElementById("btnAdicionarConsumo").onclick = adicionarConsumo;
-}
-
-/**
  * Funcao que trata o evento de click no botal de adicionar um consumo. Adiciona
  * nova informacao de alimentacao consumida para a data atual, atualizando a
  * tabela e os totais e gravando a informacao no local storage do usuario
+ * 
+ * @param categoria String contendo o id da instancia de DadoAlimentacao para a qual se deseja adicionar um consumo
  */
-function adicionarConsumo() {
-	var idGrupoAlimentar = parseInt(document.getElementById("grupoAlimentar").value);
+function adicionarConsumo(event) {
+	var idGrupoAlimentar = obterIdDoGrupoAlimentar(event.target);
 	var dataCadastro = new Date();
 	var dadosAlimentacao = obterDadosAlimentacao(dataCadastro.toLocaleDateString());
-	var itemConsumo;
 
-	var porcaoConsumida = parseInt(document.getElementById("porcaoConsumida").value);
-
-	if (porcaoConsumida) {
-		for (var index in dadosAlimentacao) {
-			if (dadosAlimentacao[index].id == idGrupoAlimentar) {
-				itemConsumo = new ItemConsumoDia(dataCadastro, porcaoConsumida);
-				dadosAlimentacao[index].novoConsumo(itemConsumo);
-				gravarNovoConsumo(dadosAlimentacao[index], itemConsumo);
-				break;
-			}
+	for (var index in dadosAlimentacao) {
+		if (dadosAlimentacao[index].id == idGrupoAlimentar) {
+			dadosAlimentacao[index].novoConsumo(dataCadastro);
+			gravarNovoConsumo(dadosAlimentacao[index], dataCadastro);
+			break;
 		}
-		carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao);
-		calcularECarregarTotaisConsumoDia(dadosAlimentacao);
 	}
+	dataCadastro = dataCadastro.toLocaleDateString();
+	carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataCadastro);
+	calcularECarregarTotaisConsumoDia(dadosAlimentacao, dataCadastro);
+}
+
+function obterIdDoGrupoAlimentar(botaoClicado) {
+	var indiceInicioId = botaoClicado.id.indexOf("_") + 1;
+	var idDoGrupoAlimentar = botaoClicado.id.slice(indiceInicioId);
+	return parseInt(idDoGrupoAlimentar);
 }

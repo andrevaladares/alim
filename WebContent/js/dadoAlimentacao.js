@@ -15,42 +15,31 @@ function DadoAlimentacao(id, descricao, consumoRecomendadoDia) {
 	this.consumoRecomendadoDia = consumoRecomendadoDia;
 	
 	this.calcularConsumoDia = function (data){
-		var totalConsumido = 0;
 		var consumoDoDia = this["consumo" + data];
-		for(var index in consumoDoDia){
-			totalConsumido += consumoDoDia[index].porcaoConsumida;
+		var consumoCalculadoDia;
+		if(consumoDoDia){
+			consumoCalculadoDia = consumoDoDia.length; 
 		}
-		
-		return totalConsumido;
+		else{
+			consumoCalculadoDia = 0;
+		}
+		return consumoCalculadoDia;
 	};
 	
    /**
     * Metodo que adiciona um novo consumo ao objeto
-    * {DadoAlimentacao} com base na instancia de {ItemConsumoDia} passada
-    * como argumento.
+    * {DadoAlimentacao} para a data passada como argumento.
     * Esse metodo complementa o atributo consumo[data] no objeto DadoAlimentacao
-    * ou cria um novo atributo em tempo de execucao caso ja nao exista.
-    * O atributo consumo[data] e um array de {ItemConsumo}.
+    * ou cria um novo atributo em tempo de execucao caso ainda nao exista.
+    * O atributo consumo[data] e um array com as data/hora em os consumos foram realizados.
+    * 
+    * @param dataConsumo a data/hora (objeto {Date}) em que o consumo do alimento esta sendo adicionado 
     */
-	this.novoConsumo = function(itemConsumo){
-		var chaveCampoConsumo = "consumo"+itemConsumo.dataConsumo.toLocaleDateString();
+	this.novoConsumo = function(dataConsumo){
+		var chaveCampoConsumo = "consumo"+dataConsumo.toLocaleDateString();
 		if(!this.hasOwnProperty(chaveCampoConsumo)){
 			this[chaveCampoConsumo]=[];
 		}
-		this[chaveCampoConsumo].push(itemConsumo);
+		this[chaveCampoConsumo].push(dataConsumo);
 	};
-}
-
-
-/**
- * Classe que representa um item de alimentacao consumido em um
- * determinado dia.
- * 
- * @param dataConsumo data em que o item foi consumido
- * @param porcaoConsumida integer representando a quantidade de porcoes consumida
- * @returns uma instancia de {ItemConsumoDia}
- */
-function ItemConsumoDia(dataConsumo, porcaoConsumida) {
-	this.dataConsumo = dataConsumo;
-	this.porcaoConsumida = porcaoConsumida;
 }
