@@ -71,6 +71,9 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 		
 		var botaoAdicionar = criarBotaoAdicionar(dadosAlimentacao[index]);
 		liItem.appendChild(botaoAdicionar);
+		
+		var botaoRemover = criarBotaoRemover(dadosAlimentacao[index]);
+		liItem.appendChild(botaoRemover);
 
 		//todo melhorar?
 		var liItemExistente = document.getElementById(liItem.id);
@@ -91,6 +94,16 @@ function criarBotaoAdicionar(dadoAlimentacao){
 	btnAddConsumo.onclick = adicionarConsumo;
 	
 	return btnAddConsumo;
+}
+
+function criarBotaoRemover(dadoAlimentacao){
+	var btnDelConsumo = document.createElement("input");
+	btnDelConsumo.setAttribute("type", "button");
+	btnDelConsumo.id = "btnDel_" + dadoAlimentacao.id;
+	btnDelConsumo.value = "Del";
+	btnDelConsumo.onclick = removerConsumo;
+	
+	return btnDelConsumo;
 }
 
 /**
@@ -165,6 +178,23 @@ function adicionarConsumo(event) {
 	for (var index in dadosAlimentacao) {
 		if (dadosAlimentacao[index].id == idGrupoAlimentar) {
 			dadosAlimentacao[index].novoConsumo(dataCadastro);
+			gravarNovoConsumo(dadosAlimentacao[index], dataCadastro);
+			break;
+		}
+	}
+	dataCadastro = dataCadastro.toLocaleDateString();
+	carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataCadastro);
+	calcularECarregarTotaisConsumoDia(dadosAlimentacao, dataCadastro);
+}
+
+function removerConsumo(event){
+	var idGrupoAlimentar = obterIdDoGrupoAlimentar(event.target);
+	var dataCadastro = new Date();
+	var dadosAlimentacao = obterDadosAlimentacao(dataCadastro.toLocaleDateString());
+
+	for (var index in dadosAlimentacao) {
+		if (dadosAlimentacao[index].id == idGrupoAlimentar) {
+			dadosAlimentacao[index].eliminaConsumo(dataCadastro);
 			gravarNovoConsumo(dadosAlimentacao[index], dataCadastro);
 			break;
 		}

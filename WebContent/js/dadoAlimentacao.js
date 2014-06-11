@@ -42,4 +42,11 @@ function DadoAlimentacao(id, descricao, consumoRecomendadoDia) {
 		}
 		this[chaveCampoConsumo].push(dataConsumo);
 	};
+	
+	this.eliminaConsumo = function(dataConsumo){
+		var chaveCampoConsumo = "consumo"+dataConsumo.toLocaleDateString();
+		if(this.hasOwnProperty(chaveCampoConsumo)){
+			this[chaveCampoConsumo].pop();
+		}
+	};
 }

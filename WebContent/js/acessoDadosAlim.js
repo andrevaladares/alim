@@ -73,14 +73,9 @@ function montarChaveDadoConsumo(dadoBaseAlimentacao, data) {
 
 function gravarNovoConsumo(dadoAlimentacao, dataConsumo) {
 	var chaveDadoConsumo = montarChaveDadoConsumo(dadoAlimentacao, dataConsumo.toLocaleDateString());
-	var arrayItensConsumo = localStorage.getItem(chaveDadoConsumo);
-	if (arrayItensConsumo) {
-		arrayItensConsumo = JSON.parse(arrayItensConsumo);
-	} else {
-		arrayItensConsumo = [];
-	}
+	var chaveCampo = "consumo"+dataConsumo.toLocaleDateString();
 	adicionarDataAoArrayDeConsumosGravados(dataConsumo);
-	arrayItensConsumo.push(dataConsumo);
+	var arrayItensConsumo = dadoAlimentacao[chaveCampo];
 	localStorage.setItem(chaveDadoConsumo, JSON.stringify(arrayItensConsumo));
 }
 
