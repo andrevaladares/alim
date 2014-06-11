@@ -47,6 +47,8 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 	var idDadosAlimentacao;
 	var consumoCalculadoDia = 0;
 	var avaliacaoConsumoDia = "";
+	
+	var dataEhAtual = dataStr == new Date().toLocaleDateString();
 
 	var tabela = document.getElementById("tabelaAcompanhamentoAlimentar");
 
@@ -69,12 +71,13 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 		liItem.appendChild(spanItemConsumo);
 		liItem.appendChild(spanAvaliacaoConsumoDia);
 		
-		var botaoAdicionar = criarBotaoAdicionar(dadosAlimentacao[index]);
-		liItem.appendChild(botaoAdicionar);
-		
-		var botaoRemover = criarBotaoRemover(dadosAlimentacao[index]);
-		liItem.appendChild(botaoRemover);
-
+		if(dataEhAtual){
+			var botaoAdicionar = criarBotaoAdicionar(dadosAlimentacao[index]);
+			liItem.appendChild(botaoAdicionar);
+			
+			var botaoRemover = criarBotaoRemover(dadosAlimentacao[index]);
+			liItem.appendChild(botaoRemover);
+		}
 		//todo melhorar?
 		var liItemExistente = document.getElementById(liItem.id);
 		if(liItemExistente){
