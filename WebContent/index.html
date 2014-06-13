@@ -3,37 +3,29 @@
 <head>
 <meta charset="ISO-8859-15">
 <title>Acompanhamento Alimentar</title>
+<meta name="viewport" content="width=device-width">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" sizes="196x196" href="img/StumbleUpon_w196h196.png"></head>
 <script src="js/dadoAlimentacao.js"></script>
 <script src="js/acessoDadosAlim.js"></script>
 <script src="js/preparaPaginaInicial.js"></script>
 <script src="js/utilitarios.js"></script>
 <link rel="stylesheet" type="text/css" href="css/alim.css">
-</head>
 <body>
-	<div class="cabecalho">
+	<div class="cabecalho center">
 		<h2>Acompanhamento alimentar</h2>
 		<span id="dataAcompanhamento"></span>
 	</div>
-	<div class="navegacao">
+	<div class="navegacao center">
 		<button id="navegarAnterior" title="Anterior" >Anterior</button>
 		<button id="navegarProximo" title="Próximo" >Próximo</button>
 	</div>
-	<form>
+	<div class="corpo center">
+	<form class="center">
 		<ol id="tabelaAcompanhamentoAlimentar">
 
 		</ol>
-<!-- 		<fieldset>		
-			<label for="grupoAlimentar">Grupo Alimentar:</label> 
-			<select
-				id="grupoAlimentar">
-				<option value="0">Selecionar</option>
-			</select>
-			<br /> 
-			<label for="porcaoConsumida">Porção Consumida:</label> <input
-				type="number" id="porcaoConsumida" class="valor" />
-				<br />
-			<button value="Adicionar" title="Adicionar" id="btnAdicionarConsumo">Adicionar</button>
-		</fieldset>
- -->	</form>
+	</form>
+	</div>
 </body>
 </html>

@@ -94,6 +94,7 @@ function criarBotaoAdicionar(dadoAlimentacao){
 	btnAddConsumo.setAttribute("type", "button");
 	btnAddConsumo.id = "btnAdd_" + dadoAlimentacao.id;
 	btnAddConsumo.value = "Add";
+	btnAddConsumo.className = "addConsumo";
 	btnAddConsumo.onclick = adicionarConsumo;
 	
 	return btnAddConsumo;
@@ -104,6 +105,7 @@ function criarBotaoRemover(dadoAlimentacao){
 	btnDelConsumo.setAttribute("type", "button");
 	btnDelConsumo.id = "btnDel_" + dadoAlimentacao.id;
 	btnDelConsumo.value = "Del";
+	btnDelConsumo.className = "delConsumo";
 	btnDelConsumo.onclick = removerConsumo;
 	
 	return btnDelConsumo;
