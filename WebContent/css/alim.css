@@ -1,5 +1,7 @@
 @CHARSET "ISO-8859-1";
 
+/*Gerais*/
+
 /* Botoes */
 #navegarAnterior{
 	height: 32px;
@@ -64,6 +66,7 @@
 ol {
 	list-style-type: none;
 	padding-left: 0px;
+	margin: 0px;
 }
 
 li {
@@ -88,6 +91,7 @@ label {
 /* tipos de dados */
 .descricao {
 	width: 300px;
+	text-indent: 5px;
 }
 
 .valor {
@@ -106,6 +110,8 @@ label {
 
 .cabecalho{
 	text-align: center;
+	background-color: black;
+	color: lightsteelblue;
 }
 
 /*Alinhamento*/
