@@ -44,7 +44,7 @@ function complementarComDadosConsumo(dadosBaseAlimentacao, data) {
 		chaveDadoConsumo = montarChaveDadoConsumo(dadosBaseAlimentacao[index], data);
 		dadoConsumoString = localStorage.getItem(chaveDadoConsumo);
 		dadoRecriadoAlimentacao = new DadoAlimentacao(dadosBaseAlimentacao[index].id, dadosBaseAlimentacao[index].descricao,
-				dadosBaseAlimentacao[index].consumoRecomendadoDia);
+				dadosBaseAlimentacao[index].consumoRecomendadoDia, dadosBaseAlimentacao[index].paginaReferencia);
 
 		if (dadoConsumoString) {
 			dadoConsumoArray = JSON.parse(dadoConsumoString);
@@ -166,46 +166,46 @@ function oberDataSeguinteComDados(dataUltimaConsultaStr) {
 }
 
 function gerarDadosAlimentacao() {
-	var dadoAlimentacao1 = new DadoAlimentacao(1, "Cereais, tubérculos, raízes e derivados", 6);
+	var dadoAlimentacao1 = new DadoAlimentacao(1, "Cereais, tubérculos, raízes e derivados", 6, "cereaisTuberculosEtc.html");
 	/*
 	 * dadoAlimentacao1["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 12, 0, 0, 0), 2), new ItemConsumoDia(new Date(2014, 4,
 	 * 26, 18, 0, 0, 0), 3) ];
 	 */
-	var dadoAlimentacao2 = new DadoAlimentacao(2, "Feijões", 1);
+	var dadoAlimentacao2 = new DadoAlimentacao(2, "Feijões", 1, "feijoes.html");
 	/*
 	 * dadoAlimentacao2["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 13, 0, 0, 0), 1) ];
 	 */
-	var dadoAlimentacao3 = new DadoAlimentacao(3, "Frutas e sucos de frutas naturais", 3);
+	var dadoAlimentacao3 = new DadoAlimentacao(3, "Frutas e sucos de frutas naturais", 3, "frutas.html");
 	/*
 	 * dadoAlimentacao3["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 13, 0, 0, 0), 1), new ItemConsumoDia(new Date(2014, 4,
 	 * 26, 17, 0, 0, 0), 3) ];
 	 */
-	var dadoAlimentacao4 = new DadoAlimentacao(4, "Legumes e verduras", 3);
+	var dadoAlimentacao4 = new DadoAlimentacao(4, "Legumes e verduras", 3, "legumesEVerduras.html");
 	/*
 	 * dadoAlimentacao4["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 12, 0, 0, 0), 1), new ItemConsumoDia(new Date(2014, 4,
 	 * 26, 18, 0, 0, 0), 1) ];
 	 */
-	var dadoAlimentacao5 = new DadoAlimentacao(5, "Leite e derivados", 3);
+	var dadoAlimentacao5 = new DadoAlimentacao(5, "Leite e derivados", 3, "leiteEDerivados.html");
 	/*
 	 * dadoAlimentacao5["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 12, 0, 0, 0), 2), new ItemConsumoDia(new Date(2014, 4,
 	 * 26, 18, 0, 0, 0), 1) ];
 	 */
-	var dadoAlimentacao6 = new DadoAlimentacao(6, "Carnes e ovos", 1);
+	var dadoAlimentacao6 = new DadoAlimentacao(6, "Carnes e ovos", 1, "carnesEOvos.html");
 	/*
 	 * dadoAlimentacao6["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 13, 0, 0, 0), 2) ];
 	 */
-	var dadoAlimentacao7 = new DadoAlimentacao(7, "Óleos, gorduras e sementes oleaginosas", 1);
+	var dadoAlimentacao7 = new DadoAlimentacao(7, "Óleos, gorduras e sementes oleaginosas", 1, "oleosGordurasESementes.html");
 	/*
 	 * dadoAlimentacao7["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 12, 0, 0, 0), 1) ];
 	 */
-	var dadoAlimentacao8 = new DadoAlimentacao(8, "Açucares e doces", 1);
+	var dadoAlimentacao8 = new DadoAlimentacao(8, "Açucares e doces", 1, "acucares.html");
 	/*
 	 * dadoAlimentacao8["consumo26/5/2014"] = [ new ItemConsumoDia(new
 	 * Date(2014, 4, 26, 12, 0, 0, 0), 0) ];

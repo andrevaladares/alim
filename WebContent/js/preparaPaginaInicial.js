@@ -47,6 +47,7 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 	var idDadosAlimentacao;
 	var consumoCalculadoDia = 0;
 	var avaliacaoConsumoDia = "";
+	var linkReferencia;
 	
 	var dataEhAtual = dataStr == new Date().toLocaleDateString();
 
@@ -55,7 +56,11 @@ function carregarTabelaAcompanhamentoAlimentar(dadosAlimentacao, dataStr) {
 	for (var index in dadosAlimentacao) {
 		idDadosAlimentacao = dadosAlimentacao[index].id;
 
-		spanItemDescricao = criarElemento("span", "itemDesc_" + idDadosAlimentacao, dadosAlimentacao[index].descricao, "descricao");
+		spanItemDescricao = criarElemento("span", "itemDesc_" + idDadosAlimentacao, "", "descricao");
+		linkReferencia = criarElemento("a", "link_" + idDadosAlimentacao, dadosAlimentacao[index].descricao, "linkDescricao");
+		linkReferencia.href = dadosAlimentacao[index].paginaReferencia;
+		spanItemDescricao.appendChild(linkReferencia);
+		
 		spanItemRecomendacao = criarElemento("span", "itemRec_" + idDadosAlimentacao, dadosAlimentacao[index].consumoRecomendadoDia, "valor");
 		consumoCalculadoDia = dadosAlimentacao[index].calcularConsumoDia(dataStr);
 		spanItemConsumo = criarElemento("span", "itemCons_" + idDadosAlimentacao, consumoCalculadoDia, "valor");

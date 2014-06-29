@@ -9,10 +9,11 @@
  * @param consumoRecomendadoDia integer representando a quantidade recomendada de porcoes para o grupo alimentar
  * @returns uma instancia de {DadoAlimentacao}
  */
-function DadoAlimentacao(id, descricao, consumoRecomendadoDia) {
+function DadoAlimentacao(id, descricao, consumoRecomendadoDia, paginaReferencia) {
 	this.id = id;
 	this.descricao = descricao;
 	this.consumoRecomendadoDia = consumoRecomendadoDia;
+	this.paginaReferencia = paginaReferencia;
 	
 	this.calcularConsumoDia = function (data){
 		var consumoDoDia = this["consumo" + data];

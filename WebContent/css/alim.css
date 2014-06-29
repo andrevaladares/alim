@@ -63,7 +63,7 @@
 }
 
 /* tags */
-ol {
+ol, ul {
 	list-style-type: none;
 	padding-left: 0px;
 	margin: 0px;
@@ -94,6 +94,10 @@ label {
 	text-indent: 5px;
 }
 
+.medida {
+	width: 150px;
+}
+
 .valor {
 	text-align: center;
 	width: 50px;
@@ -110,8 +114,6 @@ label {
 
 .cabecalho{
 	text-align: center;
-	background-color: black;
-	color: lightsteelblue;
 }
 
 /*Alinhamento*/
