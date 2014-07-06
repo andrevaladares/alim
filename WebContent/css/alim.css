@@ -48,6 +48,7 @@
 	color: transparent;
 	text-indent: -9999px;
 	border-style: none;
+	background-repeat: no-repeat;
 }
 
 .ok {
